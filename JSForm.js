@@ -150,5 +150,5 @@ function sendData(e)
 // document.getElementById("birthdaytime").value = reloadString.Time
 
 
-//Testing to see if the stage work
+//Second Test using UI
 
