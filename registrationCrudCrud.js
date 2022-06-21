@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', reload)
 function reload(e)
 {   
 
-    axios.get("https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails").
+    axios.get("https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails").
     then(displayData =>
         {
             for(let i=0; i<displayData.data.length; i++)
@@ -25,7 +25,7 @@ function postUserData(event01)
     let userObj = {"Name": canName, "Email":canEmail,"Phone":canPhone,"Time":canTime}
     function addUserToCrudCrud()
     {
-        axios.post("https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails", userObj)
+        axios.post("https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails", userObj)
     }
     addUserToCrudCrud()
     showOutput(userObj)
@@ -51,7 +51,7 @@ function showOutput(obj)
     {
         if(confirm('Delete User Info?'))
             {
-                axios.get('https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails')
+                axios.get('https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails')
                 .then(deleteObj =>
                     {
                         let results = [];
@@ -67,7 +67,7 @@ function showOutput(obj)
                         }
                         let delId = results[0]._id
                         console.log(delId)
-                        let delUrl = `https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails/${delId}`
+                        let delUrl = `https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails/${delId}`
                         console.log(delUrl)
                         axios.delete(delUrl)
  
@@ -82,11 +82,14 @@ function showOutput(obj)
              )
     editBtn.addEventListener('click', ()=>
     {   
+
                 
-        
-        let newName = prompt('Add Name')
-        let newEmail = prompt('Add Email')
-        let newPhone = prompt('Add Phone Number')
+
+            
+       
+        let newName = prompt('Add Name', 'Name Here')
+        let newEmail = prompt('Add Email', 'Email Here')
+        let newPhone = prompt('Add Phone Number','Phone Number Here')
         let newTime = prompt('Add Meeting Time','YYYY-MM-DD HH:MM')
         childClass.textContent = `${newName}  -  ${newEmail}  -  ${newPhone}  -  ${newTime}`          
         let obj01 = {Name:newName,Email:newEmail,Phone:newPhone,Time:newTime}
@@ -94,8 +97,36 @@ function showOutput(obj)
         childClass.appendChild(editBtn)
 
 
-             })
-         }
+        
+        
+        axios.get('https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails')
+        .then(editObj =>
+        {
+            let results = [];
+ 
+            let toSearch = obj.Email;
+ 
+            for(let i=0; i<editObj.data.length; i++) 
+            {
+                for(key in editObj.data[i]) 
+                {
+                    if(editObj.data[i][key].indexOf(toSearch)!=-1) 
+                    {
+                        results.push(editObj.data[i]);
+                    }
+                }
+            }
+            let editId = results[0]._id
+            console.log(editId)
+            let editUrl = `https://crudcrud.com/api/809d6c5a0256484781ba1737c902e016/userDetails/${editId}`
+            console.log(editUrl)
+            axios.put(editUrl, obj01)
+              
+        }
+        )
+
+    })
+}
 
 
 
