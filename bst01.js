@@ -6,12 +6,15 @@ class Node {
     }
 }
 
-class BinaryTree {
-    constructor() {
+class BinaryTree 
+{
+    constructor() 
+	{
         this.root = null;
     }
 
-    insert(value) {
+    insert(value) 
+	{
         const newNode = new Node(value);
         if (this.root == null) {
             this.root = newNode;
@@ -36,6 +39,28 @@ class BinaryTree {
             }
         }
     }
+	search(value) 
+	{
+        let currentNode = this.root;
+
+        while (currentNode) 
+		{
+            if (currentNode.value == value)
+                console.log(currentNode.value);
+
+            if (value < currentNode.value) 
+			{
+                currentNode = currentNode.left;
+            } else 
+			{
+                currentNode = currentNode.right;
+            }
+			
+
+        }
+		
+
+    }
 }
 
 const tree = new BinaryTree();
@@ -43,8 +68,7 @@ tree.insert(9)
 tree.insert(4)
 tree.insert(6)
 tree.insert(20)
-tree.insert(170)
+tree.insert(10)
 tree.insert(15)
 tree.insert(1)
-
-console.log(tree)
+tree.search(6)
