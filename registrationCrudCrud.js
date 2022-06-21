@@ -51,6 +51,29 @@ function showOutput(obj)
     {
         if(confirm('Delete User Info?'))
             {
+                axios.get('https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails')
+                .then(deleteObj =>
+                    {
+                        let results = [];
+
+                        let toSearch = obj.Email;
+
+                        for(var i=0; i<deleteObj.data.length; i++) {
+                        for(key in deleteObj.data[i]) {
+                            if(deleteObj.data[i][key].indexOf(toSearch)!=-1) {
+                            results.push(deleteObj.data[i]);
+                            }
+                        }
+                        }
+                        let delId = results[0]._id
+                        console.log(delId)
+                        let delUrl = `https://crudcrud.com/api/63249559f9554d179385aae28cdf8f06/userDetails/${delId}`
+                        console.log(delUrl)
+                        axios.delete(delUrl)
+ 
+                    })
+
+
                 mainClass.removeChild(childClass)
                 
                 
